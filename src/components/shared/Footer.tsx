@@ -12,26 +12,13 @@ import LogoFooter from "../../assets/Logo.svg";
 export default function Footer() {
   return (
     <footer className="border-t-2 border-[#858584] mx-auto w-full max-w-screen-2xl py-6">
-      <div className="grid grid-cols-2 justify-center items-center gap-5 lg:grid-cols-3 border-b-2 border-[#858584] py-5 mb-2">
-        <div className="flex flex-col gap-2 py-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 border-b-2 border-[#858584] py-5 mb-2">
+        <div className="flex flex-col justify-center items-center gap-5">
           <Link to="/">
-            <div className="flex items-center gap-5">
-              <img
-                src={LogoFooter}
-                alt="logo"
-                width={23}
-                height={23}
-                className="hidden lg:block"
-              />
-              <p className="hidden lg:block text-white">MOJARTO</p>
+            <div className="flex items-center gap-2">
+              <img src={LogoFooter} alt="logo" width={23} height={23} />
+              <p className="text-white">MOJARTO</p>
             </div>
-            <img
-              src="/Logo.svg"
-              alt="logo"
-              width={23}
-              height={23}
-              className="block lg:hidden"
-            />
           </Link>
           <p className="text-[#ccc]">Since 2024</p>
           <p className="text-[#ccc]">Join our community</p>
@@ -67,7 +54,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col justify-center items-center gap-3">
           <h1 className="text-white text-xl hover:text-slate-400 cursor-pointer">
             Explore
           </h1>
@@ -82,7 +69,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <div className="flex flex-col items-start gap-5">
+        <div className="flex flex-col items-center gap-5">
           <h1 className="text-white text-xl hover:text-slate-400 cursor-pointer">
             Join our weekly digest
           </h1>
@@ -90,7 +77,7 @@ export default function Footer() {
             Get exclusive promotions & updates straight to your inbox.
           </p>
 
-          <div className="flex w-full max-w-sm items-center space-x-2">
+          <div className="flex flex-col lg:flex-row gap-3 w-full max-w-[300px]">
             <Input
               type="email"
               placeholder="Enter your email here"
@@ -99,7 +86,7 @@ export default function Footer() {
             <Button
               variant={"outline"}
               type="submit"
-              className="text-white rounded-2xl p-5 hover:shadow-2xl hover:scale-110 hover:text-black"
+              className="text-white rounded-2xl p-2 lg:p-5 hover:shadow-2xl hover:scale-110 hover:text-black"
               style={{
                 background: "linear-gradient(270deg, #4287F6 0%, #D3E5FE 100%)",
               }}
@@ -109,7 +96,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <p className="text-[#ccc] text-sm py-4 ">
+      <p className="text-[#ccc] text-sm py-4 text-center">
         © 2024 MOJARTO. All rights reserved
       </p>
     </footer>

@@ -1,23 +1,34 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Bottombar from "./components/shared/Bottombar";
-import { Lamp } from "./components/shared/Lamp";
 import Navbar from "./components/shared/Navbar";
-import { Newest } from "./components/shared/Newest";
 import Footer from "./components/shared/Footer";
-import { HowitsWork } from "./components/shared/HowitsWork";
+import AuthProvider from "./context/AuthProvider";
+import SignUpForm from "./components/auth/Sign-up";
+import Home from "./pages/Home";
+import SignInForm from "./components/auth/Sign-in";
+import Products from "./pages/Products";
+import ContactPage from "./pages/ContactPage";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   return (
-    <Router basename="/"> 
+    <AuthProvider>
+    <Router>
       <>
         <Navbar />
-        <Lamp />
-        <Newest />
-        <HowitsWork/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/add-payment-card" element={<PaymentPage />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/sign-in" element={<SignInForm />} />
+        </Routes>
         <Bottombar />
         <Footer />
       </>
     </Router>
+  </AuthProvider>
   );
 }
 

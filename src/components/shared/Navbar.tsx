@@ -3,6 +3,7 @@ import Dropdawonmenunav from "./Dropdawonmenunav";
 import { UserNav } from "./UserNav";
 import { FC } from "react";
 import LogoNavbar from "../../assets/Logo.svg";
+import { Button } from "../ui/button";
 
 interface NavbarProps {}
 
@@ -38,6 +39,14 @@ const Navbar: FC<NavbarProps> = () => {
           <Link to="/about" className="hover:text-[#ccc]">
             About
           </Link>
+          <Link to="/contact" className="hover:text-[#ccc]">
+            Contact
+          </Link>
+          <Button variant={"outline"} className="w-full rounded-full flex justify-center items-center gap-3">
+          <Link to="/add-payment-card">
+            ADD Payment Card
+          </Link>
+          </Button>
         </div>
 
         <div>
