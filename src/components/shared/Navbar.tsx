@@ -19,7 +19,7 @@ const Navbar: FC<NavbarProps> = () => {
           <div className="flex items-center gap-5">
             <img
               src={LogoNavbar}
-              alt="MOJARTO Logo" 
+              alt="MOJARTO Logo"
               width={23}
               height={23}
               loading="lazy"
@@ -46,10 +46,11 @@ const Navbar: FC<NavbarProps> = () => {
           <Link to="/contact" className="hover:text-[#ccc]">
             Contact
           </Link>
-          <Button variant={"outline"} className="w-full rounded-full flex justify-center items-center gap-3">
-            <Link to="/add-payment-card">
-              ADD Payment Card
-            </Link>
+          <Button
+            variant={"outline"}
+            className="w-full rounded-full flex justify-center items-center gap-3"
+          >
+            <Link to="/add-payment-card">ADD Payment Card</Link>
           </Button>
         </div>
 
