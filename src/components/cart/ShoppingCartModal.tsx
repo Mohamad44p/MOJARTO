@@ -1,13 +1,9 @@
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useShoppingCart } from "use-shopping-cart";
 import { toast } from "sonner";
-import { useState } from "react";
+
 export default function ShoppingCartModal() {
   const {
     cartCount,
@@ -18,16 +14,14 @@ export default function ShoppingCartModal() {
     totalPrice,
     redirectToCheckout,
   } = useShoppingCart();
-  import { MouseEventHandler } from "react";
-  const [user, setUser] = useState(true);
-  async function handleCheckoutClick(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
+  const [user] = useState(true); // Removed unnecessary setUser(true)
+
+  async function handleCheckoutClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
     try {
       if (user) {
         toast.loading("Redirecting...");
-        const result = await redirectToCheckout();
+        await redirectToCheckout();
       } else {
         window.location.href = "/stripe/error";
       }
@@ -36,6 +30,7 @@ export default function ShoppingCartModal() {
       console.log(error);
     }
   }
+
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw] z-[100]">

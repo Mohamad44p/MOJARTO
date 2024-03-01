@@ -88,7 +88,7 @@ export const BackgroundBeams = React.memo(
             ></motion.path>
           ))}
           <defs>
-            {paths.map((path, index) => (
+            {paths.map((_path, index) => (
               <motion.linearGradient
                 id={`linearGradient-${index}`}
                 x1="100%"
@@ -129,6 +129,7 @@ export const BackgroundBeams = React.memo(
               <stop offset="0.43594" stopColor="white" stopOpacity="0"></stop>
             </radialGradient>
           </defs>
+          
         </svg>
       </div>
     );

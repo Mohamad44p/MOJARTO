@@ -1,9 +1,16 @@
+import  { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
-import { ProductCart } from "./AddToBag";
 import { toast } from "sonner";
-import { useState } from "react";
 
+
+interface ProductCart {
+  currency: string;
+  description: string;
+  name: string;
+  price: number;
+  price_id: string;
+}
 export default function CheckoutNow({
   currency,
   description,
@@ -13,7 +20,7 @@ export default function CheckoutNow({
 }: ProductCart) {
   const { checkoutSingleItem } = useShoppingCart();
   const [user, setUser] = useState(true);
-
+  setUser(true);
   function buyNow(priceId: string) {
     checkoutSingleItem(priceId);
   }
