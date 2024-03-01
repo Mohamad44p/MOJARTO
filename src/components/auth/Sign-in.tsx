@@ -42,10 +42,10 @@ function SignInForm() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col gap-10 h-screen">
+    <main className="flex items-center justify-center flex-col gap-10 h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#43404026] p-10 ">
         <div className="flex justify-center">
-          <img src={signinImage} alt="sign-in" className="w-2/3" />
+          <img src={signinImage} alt="Sign in" className="w-2/3" loading="lazy" />
         </div>
         <div className="flex flex-col items-start justify-start">
           <h1 className="text-3xl font-bold">Sign In</h1>
@@ -54,7 +54,7 @@ function SignInForm() {
             Selling On MOJARTO.
           </p>
           <div className="flex flex-col items-center justify-center">
-            <form action="" className="flex flex-col gap-3">
+            <form onSubmit={handleSignIn} className="flex flex-col gap-3">
               <div className="relative">
                 <User
                   color="#BDBDBD"
@@ -67,6 +67,7 @@ function SignInForm() {
                   className="w-[250px] bg-[#020202] placeholder:text-[#898989] placeholder:text-sm pl-8 rounded-full"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="relative">
@@ -81,13 +82,13 @@ function SignInForm() {
                   className="w-[250px] bg-[#020202] placeholder:text-[#898989] placeholder:text-sm pl-8 rounded-full"
                   value={formData.password}
                   onChange={handleChange}
+                  required
                 />
               </div>
 
               {error && <p className="text-red-500">{error}</p>}
               <Button
                 type="submit"
-                onClick={handleSignIn}
                 className="bg-gradient-to-r from-blue-500 to-blue-200 text-white font-bold py-2 px-4 rounded-full"
                 disabled={loading}
               >
@@ -97,7 +98,7 @@ function SignInForm() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

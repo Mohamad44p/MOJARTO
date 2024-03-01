@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useShoppingCart } from "use-shopping-cart";
 import { toast } from "sonner";
 
@@ -14,9 +19,11 @@ export default function ShoppingCartModal() {
     totalPrice,
     redirectToCheckout,
   } = useShoppingCart();
-  const [user] = useState(true); // Removed unnecessary setUser(true)
+  const [user] = useState(true);
 
-  async function handleCheckoutClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  async function handleCheckoutClick(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     event.preventDefault();
     try {
       if (user) {
@@ -32,7 +39,7 @@ export default function ShoppingCartModal() {
   }
 
   return (
-    <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
+    <Sheet  open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw] z-[100]">
         <SheetHeader>
           <SheetTitle>Shopping Cart</SheetTitle>
@@ -58,19 +65,17 @@ export default function ShoppingCartModal() {
 
                       <div className="ml-4 flex flex-1 flex-col">
                         <div>
-                          <div className="flex justify-between text-base font-medium text-gray-900 dark:text-white">
+                          <div className="flex justify-between text-base font-medium text-white">
                             <h3>{entry.name}</h3>
                             <p className="ml-4">${entry.price}</p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-300 line-clamp-2">
+                          <p className="mt-1 text-sm text-gray-300 line-clamp-2">
                             {entry.description}
                           </p>
                         </div>
 
                         <div className="flex flex-1 items-end justify-between text-sm">
-                          <p className="text-gray-500 dark:text-gray-300">
-                            QTY: {entry.quantity}
-                          </p>
+                          <p className="text-gray-300">QTY: {entry.quantity}</p>
 
                           <div className="flex">
                             <button
@@ -79,7 +84,7 @@ export default function ShoppingCartModal() {
                                 toast.success("Removed from cart");
                                 removeItem(entry.id);
                               }}
-                              className="font-medium text-primary hover:text-primary/80 dark:text-gray-100 dark:hover:text-gray-300"
+                              className="font-medium text-primary  text-gray-100 hover:text-gray-300"
                             >
                               Remove
                             </button>
@@ -94,11 +99,11 @@ export default function ShoppingCartModal() {
           </div>
 
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-            <div className="flex justify-between text-base font-medium text-gray-900">
-              <p className="dark:text-white">Subtotal:</p>
-              <p className="dark:text-white">${totalPrice}</p>
+            <div className="flex justify-between text-base font-medium ">
+              <p className="text-white">Subtotal:</p>
+              <p className="text-white">${totalPrice}</p>
             </div>
-            <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-300">
+            <p className="mt-0.5 text-sm text-gray-300">
               Shipping and taxes are calculated at checkout.
             </p>
 
@@ -109,11 +114,11 @@ export default function ShoppingCartModal() {
             </div>
 
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-              <p className="dark:text-white">
+              <p className="text-white">
                 OR{" "}
                 <button
                   onClick={() => handleCartClick()}
-                  className=" font-medium text-primary hover:text-primary/80 dark:text-gray-100 dark:hover:text-gray-300"
+                  className=" font-medium text-primary  text-gray-100 hover:text-gray-300"
                 >
                   Continue Shopping
                 </button>

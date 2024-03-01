@@ -14,7 +14,7 @@ export default function Footer() {
     <footer className="border-t-2 border-[#858584] mx-auto w-full max-w-screen-2xl py-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 border-b-2 border-[#858584] py-5 mb-2">
         <div className="flex flex-col justify-center items-center gap-5">
-          <Link to="/">
+          <Link to="/" aria-label="MOJARTO Home">
             <div className="flex items-center gap-2">
               <img src={LogoFooter} alt="logo" width={23} height={23} />
               <p className="text-white">MOJARTO</p>
@@ -23,34 +23,38 @@ export default function Footer() {
           <p className="text-[#ccc]">Since 2024</p>
           <p className="text-[#ccc]">Join our community</p>
           <div className="flex gap-3">
-            <a
-              href="https://www.facebook.com/mohamad4xp?mibextid=nwBsNb"
+            <Link
+              to="https://www.facebook.com/mohamad4xp?mibextid=nwBsNb"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Facebook"
             >
               <FacebookIcon className="w-6 h-6" />
-            </a>
-            <a
-              href="https://github.com/Mohamad44p"
+            </Link>
+            <Link
+              to="https://github.com/Mohamad44p"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="GitHub"
             >
               <GitHubLogoIcon className="w-6 h-6" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/mohamad-abuomar-0878772a1/"
+            </Link>
+            <Link
+              to="https://www.linkedin.com/in/mohamad-abuomar-0878772a1/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn"
             >
               <LinkedInLogoIcon className="w-6 h-6" />
-            </a>
-            <a
-              href="https://www.instagram.com/mohamad.69s?igsh=MWg0YjdsaGl5a2NpYQ=="
+            </Link>
+            <Link
+              to="https://www.instagram.com/mohamad.69s?igsh=MWg0YjdsaGl5a2NpYQ=="
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
             >
               <InstagramLogoIcon className="w-6 h-6" />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -58,13 +62,13 @@ export default function Footer() {
           <h1 className="text-white text-xl hover:text-slate-400 cursor-pointer">
             Explore
           </h1>
-          <Link to="/products">
+          <Link to="/products" aria-label="Products">
             <p className="text-[#ccc] hover:text-white">Products</p>
           </Link>
-          <Link to="/about">
+          <Link to="/about" aria-label="About">
             <p className="text-[#ccc] hover:text-white">About</p>
           </Link>
-          <Link to="/contact">
+          <Link to="/contact" aria-label="Contact">
             <p className="text-[#ccc] hover:text-white">Contact</p>
           </Link>
         </div>

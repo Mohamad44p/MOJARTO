@@ -1,12 +1,12 @@
-import { useLocation } from 'react-router-dom'; 
-import { Link } from 'react-router-dom'; 
-import { sidebarLinks } from '@/lib/context/NavLinks';
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { sidebarLinks } from "@/lib/context/NavLinks";
 
 function Bottombar() {
-  const { pathname } = useLocation(); 
+  const { pathname } = useLocation();
 
   return (
-    <section className="fixed bottom-0 z-[100] w-full rounded-t-3xl bg-[#05121B] p-4 backdrop-blur-lg md:hidden">
+    <nav className="fixed bottom-0 z-[100] w-full rounded-t-3xl bg-[#05121B] p-4 backdrop-blur-lg md:hidden">
       <div className="flex items-center justify-between overflow-x-auto no-scrollbar gap-3 xs:gap-5">
         {sidebarLinks.map((link) => {
           const isActive =
@@ -29,7 +29,7 @@ function Bottombar() {
           );
         })}
       </div>
-    </section>
+    </nav>
   );
 }
 

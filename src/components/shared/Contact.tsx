@@ -16,10 +16,13 @@ export function Contact() {
           style. Join our waitlist today and be the first to explore the
           captivating world of MOJARTO.
         </p>
+        <label htmlFor="email" className="sr-only">Email Address</label>
         <input
           type="text"
-          placeholder="hi@manuarora.in"
-          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700 text-lg p-3"
         />
       </div>
       <BackgroundBeams />

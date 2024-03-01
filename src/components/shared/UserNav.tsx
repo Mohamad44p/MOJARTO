@@ -1,28 +1,24 @@
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import userIcon from "../../assets/Avatar2.jpg";
-
 import { LogOut, MenuIcon, SquareUserIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 export function UserNav() {
-  const user = false;
+  const [user] = useState(false);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="rounded-full border px-2 py-2 lg:px-4 lg:py-2 flex items-center gap-x-3">
           <MenuIcon className="h-6 w-6 lg:w-5 lg:h-5" />
-
           <img
             src={userIcon}
             alt="User image"
             width={20}
             height={20}
+            loading="lazy"
             className="rounded-full h-8 w-8 hidden lg:block"
           />
         </div>
@@ -57,12 +53,27 @@ export function UserNav() {
                 </Button>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex items-center justify-center">
+            <DropdownMenuItem className="flex flex-col items-center justify-center gap-9">
               <Link to="/sign-up">
                 <Button variant={"outline"} className="w-full">
                   Sign up
                 </Button>
               </Link>
+              <Link to="/products" className="text-[17px] hover:text-[#ccc]">
+                Products
+              </Link>
+              <Link to="/about" className="text-[17px] hover:text-[#ccc]">
+                About
+              </Link>
+              <Link to="/contact" className="text-[17px] hover:text-[#ccc]">
+                Contact
+              </Link>
+              <Button
+                variant={"outline"}
+                className="w-full rounded-full flex justify-center items-center gap-3"
+              >
+                <Link to="/add-payment-card">ADD Payment Card</Link>
+              </Button>
             </DropdownMenuItem>
           </>
         )}

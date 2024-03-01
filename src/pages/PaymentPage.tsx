@@ -16,32 +16,32 @@ export default function PaymentPage() {
         <div className="flex flex-col gap-10">
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex flex-col w-full md:w-1/2 gap-5">
-              <Label>First Name</Label>
-              <Input placeholder="example" />
+              <Label htmlFor="firstName">First Name</Label>
+              <Input id="firstName" type="text" placeholder="Enter your first name" />
             </div>
             <div className="flex flex-col w-full md:w-1/2 gap-5">
-              <Label>Last Name</Label>
-              <Input placeholder="example" />
+              <Label htmlFor="lastName">Last Name</Label>
+              <Input id="lastName" type="text" placeholder="Enter your last name" />
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            <Label>Email address *</Label>
-            <Input placeholder="@example.com" />
+            <Label htmlFor="email">Email address *</Label>
+            <Input id="email" type="email" placeholder="Enter your email address" />
           </div>
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex flex-col w-full md:w-1/2 gap-5">
-              <Label>TELEGRAM CONTACT ( TELEGRAM CONTACT )</Label>
-              <Input placeholder="example" />
+              <Label htmlFor="telegramContact">TELEGRAM CONTACT</Label>
+              <Input id="telegramContact" type="text" placeholder="Enter your Telegram contact" />
             </div>
             <div className="flex flex-col w-full md:w-1/2 gap-5">
-              <Label>ICQ CONTACT ( OPTIONAL )</Label>
-              <Input placeholder="example" />
+              <Label htmlFor="icqContact">ICQ CONTACT (OPTIONAL)</Label>
+              <Input id="icqContact" type="text" placeholder="Enter your ICQ contact" />
             </div>
           </div>
           <div className="w-full border-2 border-[#C8C9CB]"></div>
           <div className="flex flex-col gap-5">
-            <Label>Where did you hear About Us?</Label>
-            <Textarea placeholder="example" />
+            <Label htmlFor="whereHeard">Where did you hear About Us?</Label>
+            <Textarea id="whereHeard" placeholder="Enter where you heard about us" />
           </div>
         </div>
 

@@ -26,13 +26,15 @@ export default function AddToBag({
     currency: currency,
     price_id: price_id,
   };
+
+  const handleAddToCart = () => {
+    toast.success("Added to cart");
+    addItem(product);
+    handleCartClick();
+  };
+
   return (
-    <Button
-      onClick={() => {
-        toast.success("Added to cart");
-        addItem(product), handleCartClick();
-      }}
-    >
+    <Button onClick={handleAddToCart} aria-label={`Add ${name} to cart`}>
       Add To Cart
     </Button>
   );

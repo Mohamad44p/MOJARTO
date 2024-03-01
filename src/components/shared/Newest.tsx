@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useState } from 'react';
-import { Skeleton } from "@/components/ui/skeleton"
+import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 interface Product {
@@ -11,27 +11,15 @@ interface Product {
   slug: string;
 }
 
-const Fallback = () => (
-  <div className="max-w-5xl mx-auto px-8">
-    {[...Array(8)].map((_, index) => (
-      <div key={index} className="flex flex-col space-y-3">
-        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[200px]" />
-        </div>
-      </div>
-    ))}
-  </div>
-);
-
 export function Newest() {
-  const [products, setProducts] = useState<{
-    title: string;
-    description: string;
-    link: string;
-    image: string;
-  }[]>([]);
+  const [products, setProducts] = useState<
+    {
+      title: string;
+      description: string;
+      link: string;
+    }[]
+  >([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetch("https://ecommerce-node4.vercel.app/products")
@@ -43,18 +31,31 @@ export function Newest() {
             title: product.name,
             description: product.description,
             link: `/products/${product.slug}`,
-            image: product.mainImage.secure_url,
           }));
         setProducts(selectedProducts);
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching products:", error));
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      });
   }, []);
 
-  return (
-    <Suspense fallback={<Fallback />}>
-      <div className="max-w-5xl mx-auto px-8">
-        <HoverEffect items={products} />
+  if (loading) {
+    return (
+      <div className="flex flex-wrap items-center gap-9 max-w-5xl mx-auto px-8">
+        {[...Array(4)].map((_, index) => (
+          <div key={index} className="flex  items-center gap-5 ">
+            <Skeleton className="h-[125px] w-[250px] rounded-xl " />
+          </div>
+        ))}
       </div>
-    </Suspense>
+    );
+  }
+
+  return (
+    <div className="max-w-5xl mx-auto px-8">
+      <HoverEffect items={products} />
+    </div>
   );
 }

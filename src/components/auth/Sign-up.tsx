@@ -51,16 +51,16 @@ function SignUpForm() {
     <div className="flex items-center justify-center flex-col gap-10 h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#43404026] p-10 ">
         <div className="flex justify-center">
-          <img src={signupImage} alt="sign-up" className="w-2/3" />
+          <img src={signupImage} alt="Sign up" className="w-2/3" loading="lazy" />
         </div>
         <div className="flex flex-col items-start justify-start">
           <h1 className="text-3xl font-bold">Create Account</h1>
           <p className="text-white font-medium my-5">
-            Welcome! enter your details and start Buying, <br /> Products 
+            Welcome! Enter your details and start Buying, <br /> Products 
             and Selling On MOJARTO.
           </p>
           <div className="flex flex-col items-center justify-center">
-            <form action="" className="flex flex-col gap-3">
+            <form onSubmit={handleSignUp} className="flex flex-col gap-3">
               <div className="relative">
                 <User
                   color="#BDBDBD"
@@ -73,6 +73,7 @@ function SignUpForm() {
                   className="w-[250px] bg-[#020202] placeholder:text-[#898989] placeholder:text-sm pl-8 rounded-full"
                   value={formData.username}
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="relative">
@@ -87,6 +88,7 @@ function SignUpForm() {
                   className="w-[250px] bg-[#020202] placeholder:text-[#898989] placeholder:text-sm pl-8 rounded-full"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="relative">
@@ -101,6 +103,7 @@ function SignUpForm() {
                   className="w-[250px] bg-[#020202] placeholder:text-[#898989] placeholder:text-sm pl-8 rounded-full"
                   value={formData.password}
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="relative">
@@ -115,12 +118,12 @@ function SignUpForm() {
                   className="w-[250px] bg-[#020202] placeholder:text-[#898989] placeholder:text-sm pl-8 rounded-full"
                   value={formData.confirmPassword}
                   onChange={handleChange}
+                  required
                 />
               </div>
               {error && <p className="text-red-500">{error}</p>}
               <Button
                 type="submit"
-                onClick={handleSignUp}
                 className="bg-gradient-to-r from-blue-500 to-blue-200 text-white font-bold py-2 px-4 rounded-full"
                 disabled={loading}
               >
