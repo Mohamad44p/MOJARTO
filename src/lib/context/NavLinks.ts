@@ -2,27 +2,32 @@ import { Home, ShoppingCart, Folder, Info, Mail, UserPlus } from 'lucide-react';
 
 export const Categories: { title: string; href: string; description: string }[] = [
   {
-    title: "Men",
+    title: "men's fashion",
     href: "/Men",
     description:
-      "For the man in your life Discover the latest trends in fashion at ChicStyleHub. Elevate your wardrobe with elegance and sophistication.",
+      "For the man in your life Discover the latest trends in fashion at Mojarto. Elevate your wardrobe with elegance and sophistication.",
   },
   {
-    title: "Women",
+    title: "women's fashion",
     href: "/Women",
     description:
-      "For the woman in your life Discover the latest trends in fashion at ChicStyleHub. Elevate your wardrobe with elegance and sophistication.",
+      "For the woman in your life Discover the latest trends in fashion at Mojarto. Elevate your wardrobe with elegance and sophistication.",
   },
   {
-    title: "Teens",
-    href: "/Teens",
+    title: "Mobiles",
+    href: "/mobiles",
     description:
-      "For the teen in your life Discover the latest trends in fashion at ChicStyleHub. Elevate your wardrobe with elegance and sophistication.",
+      "Explore the latest Mobiles at Mojarto.",
   },
   {
-    title: "Kids",
-    href: "/Kids",
-    description: "For the kid in your life Discover the latest trends in fashion at ChicStyleHub.",
+    title: "Electronics",
+    href: "/electronics",
+    description: "Explore the latest Electronics at Mojarto.",
+  },
+  {
+    title: "laptops & accessories",
+    href: "/laptops&accessories",
+    description: "Explore the latest Laptops and accessories at Mojarto.",
   },
 ]
 
