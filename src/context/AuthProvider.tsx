@@ -9,13 +9,16 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const signIn = async (email: string, password: string) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/auth/signin`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
     if (response.ok) {
       const user = await response.json();
@@ -25,19 +28,28 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signUp = async (email: string, password: string, image: File | null)  => {
+  const signUp = async (
+    userName: string,
+    email: string,
+    password: string,
+    image: File | null
+  ) => {
     const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
+    formData.append("userName", userName);
+    formData.append("email", email);
+    formData.append("password", password);
     if (image !== null) {
-      formData.append('image', image);
+      formData.append("image", image);
     }
-    
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
-      method: "POST",
-      body: formData,
-    });
-    
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/auth/signup`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
     if (response.ok) {
       const user = await response.json();
       setUser(user);
@@ -58,13 +70,16 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const sendEmailVerification = async (email: string) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/sendcode`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/sendcode`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       if (response.ok) {
         console.log("Email verification sent successfully");

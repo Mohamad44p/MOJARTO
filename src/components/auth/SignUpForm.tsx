@@ -54,9 +54,14 @@ function SignUpForm() {
       }
 
       setLoading(true);
-      await signUp(formData.email, formData.password, formData.image as File);
+      await signUp(
+        formData.username,
+        formData.email,
+        formData.password,
+        formData.image as File
+      );
       setLoading(false);
-      navigate("/sign-in");
+      navigate("/");
     } catch (error) {
       if (error instanceof ZodError) {
         setError(error.errors[0].message);
