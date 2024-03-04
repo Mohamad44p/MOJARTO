@@ -9,7 +9,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const signIn = async (email: string, password: string) => {
-    const response = await fetch("/api/auth/signin", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,15 +25,19 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signUp = async (email: string, password: string) => {
-    const response = await fetch("/api/auth/signup", {
+  const signUp = async (email: string, password: string, image: File | null)  => {
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    if (image !== null) {
+      formData.append('image', image);
+    }
+    
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
+      body: formData,
     });
-
+    
     if (response.ok) {
       const user = await response.json();
       setUser(user);
@@ -54,7 +58,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const sendEmailVerification = async (email: string) => {
     try {
-      const response = await fetch("/api/auth/sendEmailVerification", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/sendcode`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

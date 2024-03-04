@@ -1,35 +1,38 @@
 import { Home, ShoppingCart, Folder, Info, Mail, UserPlus } from 'lucide-react';
 
-export const Categories: { title: string; href: string; description: string }[] = [
+export const Categories: { id: string; title: string; href: string; description: string }[] = [
   {
-    title: "men's fashion",
-    href: "/Men",
-    description:
-      "For the man in your life Discover the latest trends in fashion at Mojarto. Elevate your wardrobe with elegance and sophistication.",
+    id: "1",
+    title: "Men's Fashion",
+    href: "/products/category/1",
+    description: "For the man in your life Discover the latest trends in fashion at Mojarto. Elevate your wardrobe with elegance and sophistication.",
   },
   {
-    title: "women's fashion",
-    href: "/Women",
-    description:
-      "For the woman in your life Discover the latest trends in fashion at Mojarto. Elevate your wardrobe with elegance and sophistication.",
+    id: "",
+    title: "Women's Fashion",
+    href: "/products/category/2",
+    description: "For the woman in your life Discover the latest trends in fashion at Mojarto. Elevate your wardrobe with elegance and sophistication.",
   },
   {
+    id: "3",
     title: "Mobiles",
-    href: "/mobiles",
-    description:
-      "Explore the latest Mobiles at Mojarto.",
+    href: "/products/category/3",
+    description: "Explore the latest Mobiles at Mojarto.",
   },
   {
+    id: "4",
     title: "Electronics",
-    href: "/electronics",
+    href: "/products/category/4",
     description: "Explore the latest Electronics at Mojarto.",
   },
   {
-    title: "laptops & accessories",
-    href: "/laptops&accessories",
+    id: "5",
+    title: "Laptops & Accessories",
+    href: "/products/category/5",
     description: "Explore the latest Laptops and accessories at Mojarto.",
   },
-]
+];
+
 
 export const sidebarLinks = [
   {

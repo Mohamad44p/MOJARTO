@@ -29,7 +29,8 @@
     "sonner": "^1.4.3",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "use-shopping-cart": "^3.2.0"
+    "use-shopping-cart": "^3.2.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",

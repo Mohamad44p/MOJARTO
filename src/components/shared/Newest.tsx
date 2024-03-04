@@ -17,12 +17,13 @@ export function Newest() {
       title: string;
       description: string;
       link: string;
+      image: string;
     }[]
   >([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch("https://ecommerce-node4.vercel.app/products")
+    fetch(`${import.meta.env.VITE_API_URL}/products`)
       .then((response) => response.json())
       .then((data) => {
         const selectedProducts = data.products
@@ -31,6 +32,7 @@ export function Newest() {
             title: product.name,
             description: product.description,
             link: `/products/${product.slug}`,
+            image: product.mainImage.secure_url,
           }));
         setProducts(selectedProducts);
         setLoading(false);

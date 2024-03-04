@@ -11,6 +11,7 @@ export const HoverEffect = ({
     title: string;
     description: string;
     link: string;
+    image: string; // Add image property
   }[];
   className?: string;
 }) => {
@@ -48,7 +49,9 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          <Card>
+          <Card image={item.image}>
+            {" "}
+            {/* Pass image to Card component */}
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
@@ -61,9 +64,11 @@ export const HoverEffect = ({
 export const Card = ({
   className,
   children,
+  image, // Receive image property
 }: {
   className?: string;
   children: React.ReactNode;
+  image: string; // Define image property
 }) => {
   return (
     <div
@@ -73,11 +78,14 @@ export const Card = ({
       )}
     >
       <div className="relative z-50">
+        <img src={image} alt="" className="w-full h-auto" />{" "}
+        {/* Render image */}
         <div className="p-4">{children}</div>
       </div>
     </div>
   );
 };
+
 export const CardTitle = ({
   className,
   children,
@@ -91,6 +99,7 @@ export const CardTitle = ({
     </h4>
   );
 };
+
 export const CardDescription = ({
   className,
   children,
@@ -101,7 +110,7 @@ export const CardDescription = ({
   return (
     <p
       className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm line-clamp-6",
         className
       )}
     >

@@ -7,7 +7,7 @@ export interface User {
 export interface AuthContextType {
   user: User | null;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, image: File) => Promise<void>; 
   signOut: () => Promise<void>;
   sendEmailVerification: (email: string) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
