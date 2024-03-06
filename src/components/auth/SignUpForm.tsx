@@ -61,7 +61,8 @@ function SignUpForm() {
         formData.image as File
       );
       setLoading(false);
-      navigate("/");
+
+      navigate("/sign-in");
     } catch (error) {
       if (error instanceof ZodError) {
         setError(error.errors[0].message);

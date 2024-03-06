@@ -4,7 +4,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { CardElement, Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-// Load Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLIC_STRIPE_KEY as string);
 
 export default function PaymentPage() {
@@ -48,7 +47,6 @@ export default function PaymentPage() {
         <div className="flex flex-col gap-5">
           <Label>Payment Information</Label>
           <div className="border border-gray-300 rounded-lg p-4">
-            {/* Wrap CardElement with Elements provider */}
             <Elements stripe={stripePromise}>
               <CardElement
                 options={{

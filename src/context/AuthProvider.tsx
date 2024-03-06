@@ -21,8 +21,9 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     );
 
     if (response.ok) {
-      const user = await response.json();
-      setUser(user);
+      const userData = await response.json();
+      setUser(userData.user);
+      localStorage.setItem("userToken", userData.token);
     } else {
       throw new Error("Invalid email or password");
     }
@@ -51,21 +52,17 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     );
 
     if (response.ok) {
-      const user = await response.json();
-      setUser(user);
+      const userData = await response.json();
+      setUser(userData.user);
+      return userData.token;
     } else {
       throw new Error("Email is already registered");
     }
   };
-
   const signOut = async () => {
-    await fetch("/api/auth/signout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    localStorage.removeItem("userToken");
     setUser(null);
+    return Promise.resolve();
   };
 
   const sendEmailVerification = async (email: string) => {

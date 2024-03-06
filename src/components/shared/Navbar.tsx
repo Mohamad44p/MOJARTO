@@ -6,10 +6,14 @@ import LogoNavbar from "../../assets/Logo.svg";
 import { Button } from "../ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useShoppingCart } from "use-shopping-cart";
+import { User } from "@/context/AuthContext";
 
-interface NavbarProps {}
+interface NavbarProps {
+  user: User | null;
+  userToken: string | null | undefined;
+}
 
-const Navbar: FC<NavbarProps> = () => {
+const Navbar: FC<NavbarProps> = ({ user, userToken }) => {
   const { handleCartClick } = useShoppingCart();
 
   return (
@@ -55,7 +59,7 @@ const Navbar: FC<NavbarProps> = () => {
         </div>
 
         <div>
-          <UserNav />
+        <UserNav user={user}   userToken={userToken}/>
         </div>
 
         <div className="hidden md:flex divide-x border-r sm:border-l">

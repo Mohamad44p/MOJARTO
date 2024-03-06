@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { User, useAuth } from "../../context/AuthContext";
 import signinImage from "../../assets/signinimage.png";
 import { Input } from "../ui/input";
-import { User } from "lucide-react";
 import { Button } from "../ui/button";
 
-function SignInForm() {
+function SignInForm({ user }: { user: User | null }) {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -30,7 +29,9 @@ function SignInForm() {
       setLoading(true);
       await signIn(formData.email, formData.password);
       setLoading(false);
+      console.log("User logged in:", user);
       navigate("/");
+      navigate(0);
     } catch (error) {
       setError(
         error instanceof Error
@@ -45,7 +46,12 @@ function SignInForm() {
     <main className="flex items-center justify-center flex-col gap-10 h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#43404026] p-10 ">
         <div className="flex justify-center">
-          <img src={signinImage} alt="Sign in" className="w-2/3" loading="lazy" />
+          <img
+            src={signinImage}
+            alt="Sign in"
+            className="w-2/3"
+            loading="lazy"
+          />
         </div>
         <div className="flex flex-col items-start justify-start">
           <h1 className="text-3xl font-bold">Sign In</h1>
@@ -56,10 +62,6 @@ function SignInForm() {
           <div className="flex flex-col items-center justify-center">
             <form onSubmit={handleSignIn} className="flex flex-col gap-3">
               <div className="relative">
-                <User
-                  color="#BDBDBD"
-                  className="w-5 h-5 rounded-full absolute translate-y-2 left-2"
-                />
                 <Input
                   type="email"
                   name="email"
@@ -71,10 +73,6 @@ function SignInForm() {
                 />
               </div>
               <div className="relative">
-                <User
-                  color="#BDBDBD"
-                  className="w-5 h-5 rounded-full absolute translate-y-2 left-2"
-                />
                 <Input
                   type="password"
                   name="password"

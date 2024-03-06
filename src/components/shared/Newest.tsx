@@ -8,7 +8,7 @@ interface Product {
   mainImage: {
     secure_url: string;
   };
-  slug: string;
+  _id: string;
 }
 
 export function Newest() {
@@ -31,7 +31,7 @@ export function Newest() {
           .map((product: Product) => ({
             title: product.name,
             description: product.description,
-            link: `/products/${product.slug}`,
+            link: `/products/${product._id}`,
             image: product.mainImage.secure_url,
           }));
         setProducts(selectedProducts);

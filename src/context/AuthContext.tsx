@@ -1,7 +1,9 @@
-import  { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export interface User {
   email: string;
+  image?: string;
+  token?: string; // Add token property
 }
 
 export interface AuthContextType {
