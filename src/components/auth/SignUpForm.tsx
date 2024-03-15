@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import signupImage from "../../assets/signupImage.png";
 import { Input } from "../ui/input";
@@ -166,6 +166,12 @@ function SignUpForm() {
                   className="w-[250px] bg-[#020202] text-white pl-8 rounded-full"
                 />
               </div>
+              <p className="text-white">
+                Forget Password ?{" "}
+                <span className="text-muted-foreground">
+                  <Link to="/ForgotPassword">Restore your Password here</Link>
+                </span>
+              </p>
               {error && <p className="text-red-500">{error}</p>}
               <Button
                 type="submit"

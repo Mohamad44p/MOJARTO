@@ -1,8 +1,11 @@
+// ProductPage.tsx
+
 import { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Star, Truck } from "lucide-react";
 import ImageGallery from "./ImageGallery";
+import AddToBag from "../cart/AddToBag";
 
 interface ProductPageProps {
   name: string;
@@ -20,6 +23,7 @@ interface ProductPageProps {
 export const ProductPage: FC<ProductPageProps> = () => {
   const { _id } = useParams<{ _id: string }>();
   const [product, setProduct] = useState<ProductPageProps | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/products/${_id}`)
@@ -47,22 +51,24 @@ export const ProductPage: FC<ProductPageProps> = () => {
       });
   }, [_id]);
 
+  const handleCheckout = () => {
+    navigate(`/checkout/${_id}`);
+  };
+
   return (
-    <div className="mx-auto h-screen max-w-screen-xl px-4 md:px-8 mt-20">
+    <div className="mx-auto max-w-screen-xl px-4 md:px-8 mt-10 mb-20">
       <div className="grid gap-8 md:grid-cols-2">
         <ImageGallery images={product?.subImages || []} />
 
         <div className="md:py-8">
           <div className="mb-2 md:mb-3">
-            <span className="mb-0.5 inline-block text-gray-200">
-              {product?.categoryName}
-            </span>
+            <span className="block text-gray-200">{product?.categoryName}</span>
             <h2 className="text-2xl font-bold text-white lg:text-3xl">
               {product?.name}
             </h2>
           </div>
-          <div className="mb-6 flex items-center gap-3 md:mb-10">
-            <Button className="rounded-full gap-2 bg-primary/70">
+          <div className="mb-4 flex items-center gap-2">
+            <Button className="rounded-full bg-primary/70">
               <span className="text-sm">4.2</span>
               <Star className="h-5 w-5" />
             </Button>
@@ -70,7 +76,7 @@ export const ProductPage: FC<ProductPageProps> = () => {
               56 Ratings
             </span>
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <div className="flex items-end gap-2">
               <span className="text-xl font-bold text-white md:text-2xl">
                 ${product?.price}
@@ -80,22 +86,26 @@ export const ProductPage: FC<ProductPageProps> = () => {
               Incl. vat plus shipping
             </span>
           </div>
-          <div className="mb-6 flex items-center gap-2 text-gray-300">
+          <div className="mb-4 flex items-center gap-2 text-gray-300">
             <Truck className="h-5 w-5 dark:text-gray-300" />
             <span className="text-sm dark:text-gray-300">2-4 day shipping</span>
           </div>
-          <div className="flex gap-2.5">
-            <Button variant={"outline"} className="rounded-full gap-2">
-              Add to Bag
-            </Button>
-            <Button
-              variant={"ghost"}
-              className="rounded-full gap-2 text-black bg-primary"
-            >
+          <div className="md:flex md:gap-5">
+            <div className="mb-4 md:mb-0">
+              <AddToBag
+                name={product?.name || ""}
+                description={product?.description || ""}
+                price={product?.price || 0}
+                currency={"USD"}
+                price_id={""}
+                image={product?.mainImage.secure_url || ""}
+              />
+            </div>
+            <Button variant={"ghost"} onClick={handleCheckout}>
               Checkout Now
             </Button>
           </div>
-          <p className="mt-12 text-base text-gray-400 tracking-wide">
+          <p className="mt-8 text-base text-gray-400 tracking-wide">
             {product?.description}
           </p>
         </div>

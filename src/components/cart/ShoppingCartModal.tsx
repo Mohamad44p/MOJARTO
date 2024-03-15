@@ -1,15 +1,29 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { FC, useEffect, useState } from "react";
+import { useShoppingCart } from "use-shopping-cart";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { useShoppingCart } from "use-shopping-cart";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function ShoppingCartModal() {
+interface ProductPageProps {
+  name: string;
+  description: string;
+  mainImage: {
+    secure_url: string;
+  };
+  price: number;
+  categoryName: string;
+  subImages?: {
+    secure_url: string;
+  }[];
+}
+
+const ShoppingCartModal: FC = () => {
   const {
     cartCount,
     shouldDisplayCart,
@@ -17,29 +31,43 @@ export default function ShoppingCartModal() {
     cartDetails,
     removeItem,
     totalPrice,
-    redirectToCheckout,
   } = useShoppingCart();
-  const [user] = useState(true);
 
-  async function handleCheckoutClick(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
-    event.preventDefault();
-    try {
-      if (user) {
-        toast.loading("Redirecting...");
-        await redirectToCheckout();
-      } else {
-        window.location.href = "/stripe/error";
-      }
-    } catch (error) {
-      toast.error("Something went wrong with your checkout");
-      console.log(error);
-    }
-  }
+  const { _id } = useParams<{ _id: string }>();
+  const [, setProduct] = useState<ProductPageProps | null>(null);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/products/${_id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch product");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProduct({
+          name: data.product.name,
+          description: data.product.description,
+          mainImage:
+            data.product.subImages && data.product.subImages.length > 0
+              ? data.product.subImages[0]
+              : { secure_url: "" },
+          price: data.product.price,
+          categoryName: data.product.categoryName,
+          subImages: data.product.subImages,
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching product:", error);
+      });
+  }, [_id]);
+
+  const handleCheckout = () => {
+    navigate(`/checkout/${_id}`);
+  };
   return (
-    <Sheet  open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
+    <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw] z-[100]">
         <SheetHeader>
           <SheetTitle>Shopping Cart</SheetTitle>
@@ -48,7 +76,7 @@ export default function ShoppingCartModal() {
           <div className="mt-8 flex-1 overflow-y-auto">
             <ul className="-my-6 divide-y divide-gray-200">
               {cartCount === 0 ? (
-                <h1 className="py-6">You dont have any items in your cart</h1>
+                <h1 className="py-6">You don't have any items in your cart</h1>
               ) : (
                 <>
                   {Object.values(cartDetails ?? {}).map((entry) => (
@@ -84,7 +112,7 @@ export default function ShoppingCartModal() {
                                 toast.success("Removed from cart");
                                 removeItem(entry.id);
                               }}
-                              className="font-medium text-primary  text-gray-100 hover:text-gray-300"
+                              className="font-medium text-primary text-gray-100 hover:text-gray-300"
                             >
                               Remove
                             </button>
@@ -108,9 +136,7 @@ export default function ShoppingCartModal() {
             </p>
 
             <div className="mt-6">
-              <Button onClick={handleCheckoutClick} className="w-full">
-                Checkout
-              </Button>
+              <Button onClick={handleCheckout}>Checkout Now</Button>
             </div>
 
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -118,7 +144,7 @@ export default function ShoppingCartModal() {
                 OR{" "}
                 <button
                   onClick={() => handleCartClick()}
-                  className=" font-medium text-primary  text-gray-100 hover:text-gray-300"
+                  className="font-medium text-primary text-gray-100 hover:text-gray-300"
                 >
                   Continue Shopping
                 </button>
@@ -129,4 +155,6 @@ export default function ShoppingCartModal() {
       </SheetContent>
     </Sheet>
   );
-}
+};
+
+export default ShoppingCartModal;

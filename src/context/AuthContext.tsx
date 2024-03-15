@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 export interface User {
   email: string;
   image?: string;
-  token?: string; // Add token property
+  token?: string; 
 }
 
 export interface AuthContextType {

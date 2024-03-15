@@ -95,7 +95,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const resetPassword = async (email: string) => {
     try {
-      const response = await fetch("/api/auth/resetPassword", {
+      const response = await fetch(  `${import.meta.env.VITE_API_URL}/auth/forgotPassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -2,12 +2,13 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useShoppingCart } from "use-shopping-cart";
 
-export interface ProductCart {
+interface ProductCart {
   name: string;
   description: string;
   price: number;
   currency: string;
   price_id: string;
+  image: string;
 }
 
 export default function AddToBag({
@@ -16,8 +17,9 @@ export default function AddToBag({
   name,
   price,
   price_id,
+  image
 }: ProductCart) {
-  const { addItem, handleCartClick } = useShoppingCart();
+  const { addItem } = useShoppingCart();
 
   const product = {
     name: name,
@@ -25,12 +27,13 @@ export default function AddToBag({
     price: price,
     currency: currency,
     price_id: price_id,
+    image: image,
   };
 
   const handleAddToCart = () => {
-    toast.success("Added to cart");
     addItem(product);
-    handleCartClick();
+
+    toast.success("Added to cart");
   };
 
   return (
