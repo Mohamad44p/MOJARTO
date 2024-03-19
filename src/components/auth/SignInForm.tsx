@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User, useAuth } from "../../context/AuthContext";
 import signinImage from "../../assets/signinimage.png";
 import { Input } from "../ui/input";
@@ -83,7 +83,12 @@ function SignInForm({ user }: { user: User | null }) {
                   required
                 />
               </div>
-
+              <p className="text-white">
+                Forget Password ?{" "}
+                <span className="text-muted-foreground">
+                  <Link to="/ForgotPassword">Restore your Password here</Link>
+                </span>
+              </p>
               {error && <p className="text-red-500">{error}</p>}
               <Button
                 type="submit"

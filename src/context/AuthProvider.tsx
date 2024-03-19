@@ -65,12 +65,12 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     return Promise.resolve();
   };
 
-  const sendEmailVerification = async (email: string) => {
+  const sendCode = async (email: string) => {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/auth/sendcode`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -79,44 +79,40 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       );
 
       if (response.ok) {
-        console.log("Email verification sent successfully");
+        console.log("Code sent successfully");
       } else {
-        throw new Error("Failed to send email verification");
+        throw new Error("Failed to send code");
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error sending email verification:", error.message);
-      } else {
-        console.error("An unexpected error occurred:", error);
-      }
+      console.error("Error sending code:", error);
       throw error;
     }
   };
 
-  const resetPassword = async (email: string) => {
+  const resetPassword = async (
+    email: string,
+    password: string,
+    code: string
+  ) => {
     try {
-      const response = await fetch(  `${import.meta.env.VITE_API_URL}/auth/forgotPassword`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/forgotPassword`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password, code }),
+        }
+      );
 
       if (response.ok) {
-        console.log("Password reset instructions sent successfully");
+        console.log("Password reset successful");
       } else {
-        throw new Error("Failed to send password reset instructions");
+        throw new Error("Failed to reset password");
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(
-          "Error sending password reset instructions:",
-          error.message
-        );
-      } else {
-        console.error("An unexpected error occurred:", error);
-      }
+      console.error("Error resetting password:", error);
       throw error;
     }
   };
@@ -128,7 +124,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         signIn,
         signUp,
         signOut,
-        sendEmailVerification,
+        sendCode,
         resetPassword,
       }}
     >

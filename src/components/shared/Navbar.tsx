@@ -44,9 +44,6 @@ const Navbar: FC<NavbarProps> = ({ user, userToken }) => {
           <Link to="/products" className="hover:text-[#ccc]">
             Products
           </Link>
-          <Link to="/about" className="hover:text-[#ccc]">
-            About
-          </Link>
           <Link to="/contact" className="hover:text-[#ccc]">
             Contact
           </Link>

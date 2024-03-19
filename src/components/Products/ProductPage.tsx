@@ -1,11 +1,11 @@
-// ProductPage.tsx
-
 import { FC, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Star, Truck } from "lucide-react";
 import ImageGallery from "./ImageGallery";
 import AddToBag from "../cart/AddToBag";
+import { User } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 interface ProductPageProps {
   name: string;
@@ -17,13 +17,19 @@ interface ProductPageProps {
   categoryName: string;
   subImages?: {
     secure_url: string;
-  }[];
+  }[]; 
+  user: User | null;
+  userToken: string | null | undefined;
 }
 
-export const ProductPage: FC<ProductPageProps> = () => {
+
+
+export const ProductPage: FC<ProductPageProps> = ({ user, userToken }) => {
+
   const { _id } = useParams<{ _id: string }>();
   const [product, setProduct] = useState<ProductPageProps | null>(null);
   const navigate = useNavigate();
+  const isLoggedIn = userToken !== null;
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/products/${_id}`)
@@ -44,16 +50,24 @@ export const ProductPage: FC<ProductPageProps> = () => {
           price: data.product.price,
           categoryName: data.product.categoryName,
           subImages: data.product.subImages,
+          user : user || null,
+          userToken : userToken || null
         });
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
       });
-  }, [_id]);
+  }, [_id, user, userToken]);
 
-  const handleCheckout = () => {
+const handleCheckout = () => {
+  if (!isLoggedIn && !userToken) {
+    navigate("/sign-in");
+    toast.error("Please login to continue");
+  } else {
     navigate(`/checkout/${_id}`);
-  };
+  }
+};
+
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 md:px-8 mt-10 mb-20">
@@ -101,9 +115,15 @@ export const ProductPage: FC<ProductPageProps> = () => {
                 image={product?.mainImage.secure_url || ""}
               />
             </div>
-            <Button variant={"ghost"} onClick={handleCheckout}>
-              Checkout Now
+           {isLoggedIn ? (
+             <Button variant={"ghost"} onClick={handleCheckout}>
+             Checkout Now
+           </Button>
+           ):(
+              <Button variant={"ghost"} onClick={handleCheckout}>
+              Login to Checkout
             </Button>
+           )}
           </div>
           <p className="mt-8 text-base text-gray-400 tracking-wide">
             {product?.description}

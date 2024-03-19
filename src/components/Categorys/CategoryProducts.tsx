@@ -56,7 +56,7 @@ const CategoryProducts = () => {
 
       <Suspense fallback={<Loading />}>
         {products.length === 0 ? (
-          <NoItem />
+          <NoItem title="There are no Products in this category" description="Try changing the category" />
         ) : (
           <div className="max-w-5xl mx-auto px-8">
             <HoverEffect

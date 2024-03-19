@@ -9,6 +9,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { useNavigate, useParams } from "react-router-dom";
+import { User } from "@/context/AuthContext";
 
 interface ProductPageProps {
   name: string;
@@ -21,9 +22,11 @@ interface ProductPageProps {
   subImages?: {
     secure_url: string;
   }[];
+  user: User | null;
+  userToken: string | null | undefined;
 }
 
-const ShoppingCartModal: FC = () => {
+const ShoppingCartModal: FC<ProductPageProps> = ({ user, userToken }) => {
   const {
     cartCount,
     shouldDisplayCart,
@@ -38,34 +41,50 @@ const ShoppingCartModal: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/products/${_id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch product");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setProduct({
-          name: data.product.name,
-          description: data.product.description,
-          mainImage:
-            data.product.subImages && data.product.subImages.length > 0
-              ? data.product.subImages[0]
-              : { secure_url: "" },
-          price: data.product.price,
-          categoryName: data.product.categoryName,
-          subImages: data.product.subImages,
+    if (_id) {
+      fetch(`${import.meta.env.VITE_API_URL}/products/${_id}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch product");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setProduct({
+            name: data.product.name,
+            description: data.product.description,
+            mainImage:
+              data.product.subImages && data.product.subImages.length > 0
+                ? data.product.subImages[0]
+                : { secure_url: "" },
+            price: data.product.price,
+            categoryName: data.product.categoryName,
+            subImages: data.product.subImages,
+            user: user || null,
+            userToken: userToken || null,
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching product:", error);
         });
-      })
-      .catch((error) => {
-        console.error("Error fetching product:", error);
-      });
-  }, [_id]);
+    }
+  }, [_id, user, userToken]);
 
   const handleCheckout = () => {
-    navigate(`/checkout/${_id}`);
+    if (cartCount === 0) {
+      toast.error("Your cart is empty");
+      navigate("/products");
+      return;
+    }
+    if (!userToken) {
+      navigate("/sign-in");
+      toast.error("Please login to continue");
+      return;
+    }
+    navigate(`/checkout`);
   };
+  
+
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw] z-[100]">
@@ -73,7 +92,7 @@ const ShoppingCartModal: FC = () => {
           <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
         <div className="flex h-full flex-col justify-between">
-          <div className="mt-8 flex-1 overflow-y-auto">
+          <div className="mt-8 flex-1 overflow-y-auto custom-scrollbars__content">
             <ul className="-my-6 divide-y divide-gray-200">
               {cartCount === 0 ? (
                 <h1 className="py-6">You don't have any items in your cart</h1>
@@ -135,7 +154,7 @@ const ShoppingCartModal: FC = () => {
               Shipping and taxes are calculated at checkout.
             </p>
 
-            <div className="mt-6">
+            <div className="mt-6 flex justify-center items-center">
               <Button onClick={handleCheckout}>Checkout Now</Button>
             </div>
 

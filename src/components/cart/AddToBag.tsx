@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useShoppingCart } from "use-shopping-cart";
+import { CartEntry } from "use-shopping-cart/core";
 
 interface ProductCart {
   name: string;
@@ -17,9 +18,9 @@ export default function AddToBag({
   name,
   price,
   price_id,
-  image
+  image,
 }: ProductCart) {
-  const { addItem } = useShoppingCart();
+  const { addItem, handleCartClick } = useShoppingCart();
 
   const product = {
     name: name,
@@ -29,13 +30,23 @@ export default function AddToBag({
     price_id: price_id,
     image: image,
   };
+  const { cartDetails } = useShoppingCart();
 
   const handleAddToCart = () => {
-    addItem(product);
+    const existingProduct = Object.values<CartEntry>(cartDetails || {}).find(
+      (item: CartEntry) => item.name === product.name
+    );
 
-    toast.success("Added to cart");
+    if (existingProduct) {
+      addItem(existingProduct);
+      toast("Adding Quantity");
+      handleCartClick();
+    } else {
+      addItem(product);
+      toast("Added to cart");
+      handleCartClick();
+    }
   };
-
   return (
     <Button onClick={handleAddToCart} aria-label={`Add ${name} to cart`}>
       Add To Cart
