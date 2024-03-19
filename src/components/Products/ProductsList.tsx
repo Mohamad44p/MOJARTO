@@ -16,7 +16,10 @@ interface Product {
   };
   slug: string;
   price: number;
+  link: string;
+  image: string;
 }
+
 
 const ProductsList: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
