@@ -62,6 +62,13 @@ export function UserNav({ user, userToken }: UserNavProps) {
           <>
             <div className="flex flex-col items-center justify-center gap-2">
               <Button
+                variant={"outline"}
+                className="w-full rounded-full flex justify-center items-center gap-3"
+                onClick={() => navigate("/profile")}
+              >
+                Profile
+              </Button>
+              <Button
                 onClick={handleLogout}
                 variant={"outline"}
                 className="w-full rounded-full flex justify-center items-center gap-3"
