@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     million.vite({
       auto: {
-        threshold: 0.05,
+        threshold: 0.03,
         skip: ["useBadHook", /badVariable/g],
       },
     }),

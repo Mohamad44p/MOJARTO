@@ -5,7 +5,8 @@ import { cn } from "../../lib/utils";
 import Cards, { Focused } from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { object, string } from "zod";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useShoppingCart } from "use-shopping-cart";
 
 export function CheekoutForm() {
   const [cardState, setCardState] = useState({
@@ -31,6 +32,8 @@ export function CheekoutForm() {
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
+  const { cartDetails } = useShoppingCart();
+
   const validateCardData = () => {
     try {
       cardSchema.parse(cardState);
@@ -52,15 +55,18 @@ export function CheekoutForm() {
     setCardState({ ...cardState, focus: e.currentTarget.name });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const cardErrors = validateCardData();
-    if (Object.keys(cardErrors).length === 0) {
-      navigate("/SuccessPage");
+    const formErrors = validateCardData();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
     } else {
-      setErrors(cardErrors);
+      localStorage.setItem("checkedOutProducts", JSON.stringify(cartDetails));
+      navigate("/SuccessPage");
     }
   };
+  
+  
 
   return (
     <div className="max-w-md mt-24 w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white">
@@ -71,7 +77,7 @@ export function CheekoutForm() {
         Enter Your Payment Information to Complete Your Order
       </p>
 
-      <form className="my-8" onSubmit={() => handleSubmit}>
+      <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
@@ -162,23 +168,15 @@ export function CheekoutForm() {
           />
           {errors["cvc"] && <div className="text-red-500">{errors["cvc"]}</div>}
         </div>
-        {cardState.cvc &&
-          cardState.expiry &&
-          cardState.name &&
-          cardState.number &&
-          cardState.email &&
-          cardState.firstname &&
-          cardState.lastname && (
-            <Link to="/SuccessPage">
-              <button
-                className="bg-gradient-to-br relative group/btn mt-10 from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                type="submit"
-              >
-                Complete The Order
-                <BottomGradient />
-              </button>
-            </Link>
-          )}
+
+        <button
+          className="bg-gradient-to-br relative group/btn mt-10 from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          type="submit"
+        >
+          Complete The Order
+          <BottomGradient />
+        </button>
+
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
       </form>
     </div>

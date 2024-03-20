@@ -70,6 +70,8 @@ const ShoppingCartModal: FC<ProductPageProps> = ({ user, userToken }) => {
     }
   }, [_id, user, userToken]);
 
+ 
+
   const handleCheckout = () => {
     if (cartCount === 0) {
       toast.error("Your cart is empty");
@@ -81,7 +83,7 @@ const ShoppingCartModal: FC<ProductPageProps> = ({ user, userToken }) => {
       toast.error("Please login to continue");
       return;
     }
-    navigate(`/checkout`);
+    navigate('/checkout');
   };
   
 

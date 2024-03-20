@@ -21,6 +21,7 @@ import ForgotPassword from "./components/auth/ForgotPassword";
 import ResetPassword from "./components/auth/ResetPassword";
 import UserProfile from "./components/auth/UserProfile";
 import SuccessPage from "./components/cart/SuccessPage";
+import Order from "./components/cart/Order";
 
 const SignUpForm = React.lazy(() => import("./components/auth/SignUpForm"));
 const Home = React.lazy(() => import("./pages/Home"));
@@ -97,6 +98,7 @@ function App() {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/checkout/:_id" element={<Checkout />} />
                 <Route path="/checkout" element={<CheckoutCart />} />
+                <Route path="/Orders" element={<Order />} />
                 <Route path="/SuccessPage" element={<SuccessPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
