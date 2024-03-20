@@ -19,31 +19,37 @@ const Navbar: FC<NavbarProps> = ({ user, userToken }) => {
   return (
     <nav className="w-full border-b">
       <div className="flex justify-between items-center container mx-auto px-5 lg:px-10 py-5">
-        <Link to="/">
-          <div className="flex items-center gap-5">
+        <Link className="flex gap-5" to="/">
             <img
               src={LogoNavbar}
               alt="MOJARTO Logo"
               width={23}
               height={23}
               loading="lazy"
-              className="hidden lg:block"
+              className="hidden lg:flex"
             />
-            <p className="hidden lg:block text-white">MOJARTO</p>
-          </div>
-          <img
+             <img
             src={LogoNavbar}
             alt="logo"
             width={23}
             height={23}
-            className="block lg:hidden"
+            className="flex lg:hidden"
           />
+          <div className="flex items-center gap-5">
+            <p className=" lg:flex text-white">MOJARTO</p>
+          </div>
+         
         </Link>
         <div className="hidden lg:flex items-center gap-5 rounded-full border px-5 py-2">
           <Dropdawonmenunav />
           <Link to="/products" className="hover:text-[#ccc]">
             Products
           </Link>
+          {userToken && (
+            <Link to="/Orders" className="hover:text-[#ccc]">
+              Orders
+            </Link>
+          )}
           <Link to="/contact" className="hover:text-[#ccc]">
             Contact
           </Link>
@@ -55,11 +61,11 @@ const Navbar: FC<NavbarProps> = ({ user, userToken }) => {
           </Button>
         </div>
 
-        <div>
-        <UserNav user={user}   userToken={userToken}/>
+        <div className="lg:mr-0 ">
+          <UserNav user={user} userToken={userToken} />
         </div>
 
-        <div className="hidden md:flex divide-x border-r sm:border-l">
+        <div className="md:flex divide-x border-r sm:border-l">
           <Button
             onClick={() => handleCartClick()}
             variant={"outline"}

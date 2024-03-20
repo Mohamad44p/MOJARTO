@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, Folder, Info, Mail, UserPlus } from 'lucide-react';
+import { Home, ShoppingCart, Mail, UserPlus , BadgeDollarSign } from 'lucide-react';
 
 export const Categories: { id: string; title: string; href: string; description: string }[] = [
   {
@@ -46,16 +46,6 @@ export const sidebarLinks = [
     label: "Products",
   },
   {
-    Icon: Folder,
-    route: "/categories",
-    label: "Categories",
-  },
-  {
-    Icon: Info,
-    route: "/about",
-    label: "About",
-  },
-  {
     Icon: Mail,
     route: "/contact",
     label: "Contact",
@@ -64,5 +54,11 @@ export const sidebarLinks = [
     Icon: UserPlus,
     route: "/sign-up",
     label: "Sign Up",
-  }
+  },
+  {
+    Icon: BadgeDollarSign,
+    route: "/add-payment-card",
+    label: "Add Payment Card",
+  },
+ 
 ];
