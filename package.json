@@ -24,9 +24,11 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.3.0",
     "@types/jwt-decode": "^3.1.0",
+    "@upstash/vector": "^1.0.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "framer-motion": "^11.0.14",
+    "dotenv": "^16.4.5",
+    "framer-motion": "^11.0.23",
     "input-otp": "^1.1.0",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
@@ -60,6 +62,9 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "tailwindcss-box-shadow": "^2.0.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
   }

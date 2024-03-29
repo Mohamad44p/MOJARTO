@@ -1,4 +1,3 @@
-// ProductsList.tsx
 import { FC, useEffect, useState } from "react";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { SkeltonCard } from "../shared/SkeletonCard";
